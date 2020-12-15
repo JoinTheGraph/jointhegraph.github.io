@@ -20,7 +20,7 @@ apt search openjdk
 
 The following image shows some of the output of this command.
 
-[TODO: Put the "apt-search-output.png" image here]
+![apt search output](apt-search-output.png)
 
 The "JDK" (Java Development Kit) is what you install when you need to compile and run Java applications. But in our case, we will download a pre-compiled version of JanusGraph and we will just need to run it. So the "JRE" (Java Runtime Environment) will be enough. Now the choice is between the "JRE" and the "JRE headless" packages. Normally, on servers, you install the headless version which is a minimal version of Java that should be enough for executing non-GUI applications. But for some reason, JanusGraph gave me errors when I tried to run it on the headless version of the JRE. So I ended up having to install the full JRE.
 
@@ -70,7 +70,7 @@ su janus
 
 This will start the Gremlin Server and it will listen to port 8182. The following image shows the output of the Gremlin Server.
 
-[TODO: Put "gremlin-server-output.png" here]
+![Gremlin Server output](gremlin-server-output.png)
 
 ### Test the Server From the Gremlin Console
 
@@ -81,7 +81,7 @@ su janus
 /opt/janusgraph-0.5.2/bin/gremlin.sh
 ```
 
-[TODO: Put "gremlin-console.png" here]
+![Gremlin Console](gremlin-console.png)
 
 To connect the Gremlin Console to the Gremlin Server running on the same machine, enter the following command in the Gremlin Console.
 
