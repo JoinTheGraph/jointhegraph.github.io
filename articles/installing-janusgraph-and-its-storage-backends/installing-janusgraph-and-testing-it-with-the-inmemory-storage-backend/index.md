@@ -121,7 +121,7 @@ gremlin> g.V().count()
 
 So let's create a couple of vertices
 
-```java
+```groovy
 g.addV('person').property('name', 'p1')
 g.addV('person').property('name', 'p2')
 ```
@@ -153,7 +153,7 @@ Then switch to the Gremlin Console terminal. Because we restarted the server, we
 
 Now let's see the vertices count after the server restart
 
-```java
+```groovy
 gremlin> g.V().count()
 ==>0
 ```
