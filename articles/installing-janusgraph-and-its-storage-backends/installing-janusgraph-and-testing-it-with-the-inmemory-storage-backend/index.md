@@ -2,6 +2,8 @@
 
 # 1. Installing JanusGraph and Testing it With the InMemory Storage Backend
 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/4LWl10oKR_s" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 ### Introduction
 
 In this article series, I will explain how to install JanusGraph on a Linux Ubuntu server. And how to install three of its officially supported storage backends (Apache Cassandra, Apache HBase, and Oracle Berkeley DB Java Edition). I will also show how to configure JanusGraph to specify the storage backend we want to use.
