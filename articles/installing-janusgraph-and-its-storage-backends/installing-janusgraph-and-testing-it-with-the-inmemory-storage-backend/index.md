@@ -2,7 +2,7 @@
 
 # 1. Installing JanusGraph and Testing it With the InMemory Storage Backend
 
-<div style="text-align: center;"><iframe width="560" height="315" src="https://www.youtube.com/embed/4LWl10oKR_s" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+<div style="text-align: center; margin-top: 2rem;"><iframe width="560" height="315" src="https://www.youtube.com/embed/4LWl10oKR_s" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
 
 ### Introduction
 
