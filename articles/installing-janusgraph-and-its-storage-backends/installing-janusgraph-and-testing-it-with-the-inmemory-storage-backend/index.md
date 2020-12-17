@@ -12,7 +12,7 @@ In this first article, I will explain how to install JanusGraph itself and how t
 
 ### Install Java 8 JRE
 
-JanusGraph is a Java application. So we need to have the Java JRE or JDK installed on the server to be able to run JanusGraph. At the time of writing this article, [JanusGraph latest release page on Github](https://github.com/JanusGraph/janusgraph/releases/latest) tells us that it was tested with Java 1.8 (which is the same as Java 8). So it is better to install this particular version on the server.
+JanusGraph is a Java application. So we need to have the Java JRE or JDK installed on the server to be able to run JanusGraph. At the time of writing this article, [JanusGraph latest release page on GitHub](https://github.com/JanusGraph/janusgraph/releases/latest) tells us that it was tested with Java 1.8 (which is the same as Java 8). So it is better to install this particular version on the server.
 
 I do not remember the exact package names for Java 8. So I will start by running the `apt search` command.
 
@@ -35,7 +35,7 @@ apt install openjdk-8-jre
 
 ### Download and Extract JanusGraph
 
-I place prepackaged application bundles under "/opt". So you can go to this directory or any other directory you like. Then use the "wget" command to download the JanusGraph ZIP file from github. Then the "unzip" command to extract the files from the ZIP archive.
+I place prepackaged application bundles under "/opt". So you can go to this directory or any other directory you like. Then use the "wget" command to download the JanusGraph ZIP file from GitHub. Then the "unzip" command to extract the files from the ZIP archive.
 
 ```shell
 cd /opt
@@ -43,7 +43,7 @@ wget https://github.com/JanusGraph/janusgraph/releases/download/v0.5.2/janusgrap
 unzip janusgraph-0.5.2.zip
 ```
 
-You can get the download link from [JanusGraph's latest release page on Github](https://github.com/JanusGraph/janusgraph/releases/latest). And you may need to install the "unzip" package if you do not already have it.
+You can get the download link from [JanusGraph's latest release page on GitHub](https://github.com/JanusGraph/janusgraph/releases/latest). And you may need to install the "unzip" package if you do not already have it.
 
 ### Create a Linux User for Running JanusGraph
 
