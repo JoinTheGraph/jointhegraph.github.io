@@ -128,8 +128,9 @@ The result shows that the vertices were remembered. This is the expected result 
 
 You can explore the file system to see the folders that were created under the JanusGraph root folder to store the graph data and the mixed index data. The folder "db/berkeley" contains a few files. This is where the graph data (vertices, edges, properties, ...) is stored. These files are managed by Berkeley DB. The other folder "db/searchindex" is empty because we did not create any mixed indexes. But if we do, Lucene will write the mixed index data under this folder.
 
+---
 
-Other articles in this series:
+**Other articles in this series:**
 
 1. [Installing JanusGraph and Testing it With the InMemory Storage Backend](../installing-janusgraph-and-testing-it-with-the-inmemory-storage-backend/index.md)
 2. Configuring JanusGraph to Use Oracle Berkeley DB
