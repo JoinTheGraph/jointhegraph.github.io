@@ -128,6 +128,21 @@ The result shows that the vertices were remembered. This is the expected result 
 
 You can explore the file system to see the folders that were created under the JanusGraph root folder to store the graph data and the mixed index data. The folder "db/berkeley" contains a few files. This is where the graph data (vertices, edges, properties, ...) is stored. These files are managed by Berkeley DB. The other folder "db/searchindex" is empty because we did not create any mixed indexes. But if we do, Lucene will write the mixed index data under this folder.
 
+### Critique of Berkeley DB
+
+I am currently planning for an application that will use a graph database. And I will probably use JanusGraph unless I find a better alternative. I am still trying to decide on the storage backend that I will use with JanusGraph. My database/graph will be small enough to fit in one machine, so I do not think I will need horizontal scalability. So is Berkeley DB a good storage backend for my use case? I still do not know. But from my research so far, I found some pros and cons.
+
+**The Pros**
+
+1. Berkeley DB runs in the same process as JanusGraph. Other storage backends run as servers and listen to a port. So using Berkeley DB will save the overhead of communication between JanusGraph and the storage backend server.
+2. Open source with a very permissive license (Apache 2.0). Note that I am talking about "Oracle Berkeley DB Java Edition". The other members of the Oracle Berkeley DB family have a much more restrictive license (AGPL 3). But I only care about the Java Edition because it is the only one that can be used with JanusGraph.
+
+**The Cons**
+
+Not future-proof at all. It seems like dead software. Even Oracle does not care very much about it. You can download Berkeley DB's source code from Oracle's website. But I could not find any public repository. There is a [discussion board](https://community.oracle.com/tech/developers/categories/berkeley_db_java_edition) for the product, but it is very inactive. The latest version downloadable from Oracle's website is 7.5.11. I have no idea when this version was released. Probably a long time ago. The version of the Berkeley DB library that comes with JanusGraph is 18.3.12. The JanusGraph developers got this JAR file from Maven Central.
+
+This all seems messy to me. So I do not think I will use Berkeley DB in production unless it turns out to be much faster than Cassandra and HBase in my use case.
+
 ---
 
 **Other articles in this series:**
