@@ -12,7 +12,7 @@ In this article, I will explain how to configure JanusGraph to use "Oracle Berke
 
 Oracle Berkeley DB is an embedded key-value database library. The words "embedded" and "library" mean that Berkeley DB will be loaded and executed in the JanusGraph process as opposed to running in a separate process. So Berkeley DB is a database management library, not a stand-alone database server like Cassandra or HBase.
 
-The Berkeley DB JAR file is included in the JanusGraph package that we downloaded in the previous article. So there is no need to download or install Berkeley DB separately.
+The Berkeley DB JAR file is included in the JanusGraph package that we downloaded in the previous article. The path to the JAR file is "lib/je-18.3.12.jar". So there is no need to download or install Berkeley DB separately.
 
 ### Configure JanusGraph to Use Berkeley DB
 
