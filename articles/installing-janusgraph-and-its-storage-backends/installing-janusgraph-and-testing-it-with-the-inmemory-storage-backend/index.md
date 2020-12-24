@@ -164,8 +164,9 @@ This confirms that all the data was lost when we restarted the server.
 
 In the next articles, I will show how to make JanusGraph use storage backends that actually persist the graph data.
 
+---
 
-Other articles in this series:
+**Other articles in this series:**
 
 1. Installing JanusGraph and Testing it With the InMemory Storage Backend
 2. [Configuring JanusGraph to Use Oracle Berkeley DB](../configuring-janusgraph-to-use-oracle-berkeley-db/index.md)
