@@ -2,6 +2,8 @@
 
 # 2. Configuring JanusGraph to Use Oracle Berkeley DB
 
+<div style="text-align: center; margin-top: 2rem;"><iframe width="560" height="315" src="https://www.youtube.com/embed/KO_W6Ifh-5E" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+
 ### Introduction
 
 This is the second article in a series of articles about installing and configuring JanusGraph and its storage backends on a Linux Ubuntu server.
