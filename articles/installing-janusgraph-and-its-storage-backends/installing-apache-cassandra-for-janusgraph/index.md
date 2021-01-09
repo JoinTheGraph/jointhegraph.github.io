@@ -104,8 +104,8 @@ gremlin> g.addV('person').property('name', 'p1')
 ==>v[4160]
 gremlin> g.addV('person').property('name', 'p2')
 ==>v[4144]
-gremlin> g.addE('known').from(g.V(4160)).to(g.V(4144))
-==>e[1l4-37k-2dx-374][4160-known->4144]
+gremlin> g.addE('knows').from(g.V(4160)).to(g.V(4144))
+==>e[1l4-37k-2dx-374][4160-knows->4144]
 ```
 
 Since these commands were executed successfully, this means that JanusGraph is talking to Cassandra without problems.
