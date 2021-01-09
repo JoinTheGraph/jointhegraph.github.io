@@ -170,3 +170,4 @@ In the next articles, I will show how to make JanusGraph use storage backends th
 
 1. Installing JanusGraph and Testing it With the InMemory Storage Backend
 2. [Configuring JanusGraph to Use Oracle Berkeley DB](../configuring-janusgraph-to-use-oracle-berkeley-db/index.md)
+3. [Installing Apache Cassandra for JanusGraph](../installing-apache-cassandra-for-janusgraph/index.md)
