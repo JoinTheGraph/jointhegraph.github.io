@@ -97,6 +97,13 @@ Then enter
 
 to send all the following commands to the server without having to precede them with `:>`
 
+Let's check the string representation of the `graph` object to make sure that JanusGraph is configured to use Cassandra/CQL.
+
+```
+gremlin> graph
+==>standardjanusgraph[cql:[127.0.0.1]]
+```
+
 Create two vertices and an edge to connect them.
 
 ```
