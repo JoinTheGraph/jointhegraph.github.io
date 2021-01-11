@@ -49,7 +49,7 @@ The `-f` flag runs the Cassandra server in the foreground so we can see the outp
 
 The screenshot above shows the Cassandra server output. The most important piece of information is the port number that Cassandra is listening to.
 
-### Edit the JanusGraph Configuration to Make It Use Cassandra
+### Configure JanusGraph to Use Cassandra
 
 Open a new terminal window. Then open the file `/opt/janusgraph-0.5.2/conf/gremlin-server/gremlin-server.yaml` for editing. And change the value of `graphs > graph` as shown below.
 
