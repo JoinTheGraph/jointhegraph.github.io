@@ -10,7 +10,7 @@ In this article, I will explain how to install and run the Apache HBase database
 
 ### Download and Extract HBase
 
-At the time of writing this article, [JanusGraph's latest release page on GitHub](https://github.com/JanusGraph/janusgraph/releases/latest) says that JanusGraph is compatible with HBase 2.1.5. So I will get this version's download link from the [Apache HBase archive](https://archive.apache.org/dist/hbase/), and I will use the `wget` shell command to download it to my `/opt` directory. Then I will use the `tar` command to extract the contents of the downloaded archive.
+At the time of writing this article, [JanusGraph's latest release page on GitHub](https://github.com/JanusGraph/janusgraph/releases/latest) says that JanusGraph is compatible with HBase 2.1.5. So I will get this version's download link from the [Apache HBase archive](https://archive.apache.org/dist/hbase/), and I will use the `wget` shell command to download it to my "/opt" directory. Then I will use the `tar` command to extract the contents of the downloaded archive.
 
 ```shell
 cd /opt
@@ -61,7 +61,7 @@ We can set the JAVA_HOME environment variable by entering the following command.
 export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64/jre/
 ```
 
-But I don't want to have to enter this command manually everytime before running the HBase server. HBase gives you a better way to set the environment variables for the server. All you need to do is edit the file "conf/hbase-env.sh" under the HBase root folder to specify the environment variables that need to be set before starting HBase.
+But I don't want to have to enter this command manually every time before running the HBase server. HBase gives you a better way to set the environment variables for the server. All you need to do is edit the file "conf/hbase-env.sh" under the HBase root folder to specify the environment variables that need to be set before starting HBase.
 
 ```shell
 vim /opt/hbase-2.1.5/conf/hbase-env.sh
@@ -161,7 +161,7 @@ su hbase
 /opt/hbase-2.1.5/bin/hbase shell
 ```
 
-Now lets use the `list` command to list all the tables in HBase.
+Now let's use the `list` command to list all the tables in HBase.
 
 ```
 hbase(main):001:0> list
