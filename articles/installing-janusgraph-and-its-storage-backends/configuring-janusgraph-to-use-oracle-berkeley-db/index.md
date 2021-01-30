@@ -152,3 +152,4 @@ This all seems messy to me. So I do not think I will use Berkeley DB in producti
 1. [Installing JanusGraph and Testing it With the InMemory Storage Backend](../installing-janusgraph-and-testing-it-with-the-inmemory-storage-backend/index.md)
 2. Configuring JanusGraph to Use Oracle Berkeley DB
 3. [Installing Apache Cassandra for JanusGraph](../installing-apache-cassandra-for-janusgraph/index.md)
+4. [Installing Apache HBase for JanusGraph](../installing-apache-hbase-for-janusgraph/index.md)
