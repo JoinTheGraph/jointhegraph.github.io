@@ -278,7 +278,7 @@ ROW                                      COLUMN+CELL
 Took 0.1781 seconds
 ```
 
-You see that it took 18 rows to store these two vertices, their properties and the edge connecting them. The data in the table is not human readable. But at least we know where it is.
+You see that it took 18 rows to store these two vertices, their properties and the edge connecting them. The data in the table is not human readable, but at least we know where it is.
 
 ---
 
