@@ -204,3 +204,4 @@ The data is not human readable. But at least we know where it is.
 1. [Installing JanusGraph and Testing it With the InMemory Storage Backend](../installing-janusgraph-and-testing-it-with-the-inmemory-storage-backend/index.md)
 2. [Configuring JanusGraph to Use Oracle Berkeley DB](../configuring-janusgraph-to-use-oracle-berkeley-db/index.md)
 3. Installing Apache Cassandra for JanusGraph
+4. [Installing Apache HBase for JanusGraph](../installing-apache-hbase-for-janusgraph/index.md)
