@@ -107,3 +107,84 @@ public void ConfigureServices(IServiceCollection services)
 The string `"g"` given to the `DriverRemoteConnection` is the identifier of the server-side GraphTraversalSource that the local GraphTraversalSource should be bound to. If the server has multiple graphs, each of them will be exposed to remote clients by a different GraphTraversalSource identifier.
 
 ### Execute a Gremlin Traversal
+
+Open "Pages/Index.cshtml.cs" under the project root folder. And change the private property and the constructor to inject an instance of `GraphTraversalSource` instead of the `ILogger`.
+
+```csharp
+private readonly GraphTraversalSource _g;
+
+public IndexModel(GraphTraversalSource g)
+{
+    _g = g;
+}
+```
+
+Then add a public property on the `IndexModel` to hold the people data that we will fetch from the database.
+
+```csharp
+public IList<IDictionary<string, object>> People { get; set; }
+```
+
+Unfortunately the Gremlin traversals do not return strongly-typed models. Here the list items will represent people. The the dictionary will hold the property names and values of the person. Of course there are ways to map this properties dictionary to a strongly-typed object. But I will not do this here because I want to focus on the basics in this article.
+
+Next, write the Gremlin traversal in the `OnGet()` method to fetch the data from the Gremlin server and assign it to the `People` property.
+
+```csharp
+public void OnGet()
+{
+    People = _g.V()
+        .HasLabel("person")
+        .Project<object>("Id", "FirstName", "LastName")
+            .By(T.Id)
+            .By("firstName")
+            .By("lastName")
+        .ToList();
+}
+```
+
+There is a small enhancement that I would like to make to the code above. It is always better to execute IO operations asynchronously so we do not block the thread. And Gremlin.Net does provide a `Promise()` function to execute the traversals asynchronously. So let's make the `OnGet()` method async. And replace `.ToList()` by `.Promise(traversal => traversal.ToList())`.
+
+```csharp
+public async Task OnGetAsync()
+{
+    People = await _g.V()
+        .HasLabel("person")
+        .Project<object>("Id", "FirstName", "LastName")
+            .By(T.Id)
+            .By("firstName")
+            .By("lastName")
+        .Promise(traversal => traversal.ToList());
+}
+```
+
+### Display the Traversal Results In the View
+
+Open "Pages/Index.cshtml" under the project root folder and write the following Razor code to display the people data fetched from the graph database.
+
+```razor
+@if (!Model.People.Any())
+{
+    <p>There are no people in the database.</p>
+}
+else
+{
+    <table border="1" cellpadding="5">
+        <tr>
+            <th>ID</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+        </tr>
+
+        @foreach (Dictionary<string, object> person in Model.People)
+        {
+            <tr>
+                <td>@person["Id"]</td>
+                <td>@person["FirstName"]</td>
+                <td>@person["LastName"]</td>
+            </tr>
+        }
+    </table>
+}
+```
+
+### Run the Web Application
