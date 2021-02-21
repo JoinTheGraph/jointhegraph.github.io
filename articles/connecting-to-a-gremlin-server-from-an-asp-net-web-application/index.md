@@ -59,3 +59,51 @@ The big question is: "What should be the lifetime of these objects?". The ASP.NE
 - Singleton: Only one object is created per application lifetime. And this one object is used by all the web application threads potentially running in parallel to process concurrent HTTP requests.
 
 `GremlinClient` is thread safe. So it can be registered as a singleton. And you will probably want to do that because every instance of GremlinClient contains a connection pool. And every time you create an instance of GremlinClient it opens as many connections to the database server as needed to fill the pool. So creating an instance of GremlinClient is a very expensive operation that you do not normally want to do more than once in the application lifetime. The GremlinClient instance is bound to a particular database server, so the only reason to create multiple instances is if you want to connect to multiple database servers.
+
+`GraphTraversalSource` is thread safe too. So it can be registered as a singleton. But creating an instance of GraphTraversalSource is very cheap when you already have the GremlinClient required to create it. So it will not hurt if you register the GraphTraversalSource as a transient or a scoped service. The GraphTraversalSource is bound to a particular graph on the database server. So if your application needs to access multiple graphs, you will need to create multiple GraphTraversalSource instances.
+
+Update the `ConfigureServices()` function in "Startup.cs" to register the `GremlinClient` and the `GraphTraversalSource` as singletons.
+
+```csharp
+public void ConfigureServices(IServiceCollection services)
+{
+    services.AddSingleton<GremlinClient>(
+        (serviceProvider) =>
+        {
+            var gremlinServer = new GremlinServer(
+                hostname: "localhost",
+                port: 8182,
+                enableSsl: false,
+                username: null,
+                password: null
+            );
+            
+            return new GremlinClient(
+                gremlinServer: gremlinServer,
+                connectionPoolSettings: new ConnectionPoolSettings
+                {
+                    PoolSize = 4,
+                    MaxInProcessPerConnection = 32,
+                    ReconnectionAttempts = 4,
+                    ReconnectionBaseDelay = TimeSpan.FromSeconds(1)
+                }
+            );
+        }
+    );
+
+    services.AddSingleton<GraphTraversalSource>(
+        (serviceProvider) =>
+        {
+            var gremlinClient = serviceProvider.GetService<GremlinClient>();
+            var driverRemoteConnection = new DriverRemoteConnection(gremlinClient, "g");
+            return AnonymousTraversalSource.Traversal().WithRemote(driverRemoteConnection);
+        }
+    );
+
+    services.AddRazorPages();
+}
+```
+
+The string `"g"` given to the `DriverRemoteConnection` is the identifier of the server-side GraphTraversalSource that the local GraphTraversalSource should be bound to. If the server has multiple graphs, each of them will be exposed to remote clients by a different GraphTraversalSource identifier.
+
+### Execute a Gremlin Traversal
