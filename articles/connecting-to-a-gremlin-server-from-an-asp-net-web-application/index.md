@@ -54,9 +54,9 @@ The Gremlin client objects we need are `GremlinClient` and `GraphTraversalSource
 
 The big question is: "What should be the lifetime of these objects?". The ASP.NET service container gives you three lifetime options for registering types:
 
-- Transient: A new object is created each time an instance is requested from the container.
-- Scoped: A new object is created only once per HTTP request and is reused as many times as needed during this same request processing.
-- Singleton: Only one object is created per application lifetime. And this one object is used by all the web application threads potentially running in parallel to process concurrent HTTP requests.
+- **Transient:** A new object is created each time an instance is requested from the container.
+- **Scoped:** A new object is created only once per HTTP request and is reused as many times as needed during this same request processing.
+- **Singleton:** Only one object is created per application lifetime. And this one object is used by all the web application threads potentially running in parallel to process concurrent HTTP requests.
 
 `GremlinClient` is thread safe. So it can be registered as a singleton. And you will probably want to do that because every instance of GremlinClient contains a connection pool. And every time you create an instance of GremlinClient it opens as many connections to the database server as needed to fill the pool. So creating an instance of GremlinClient is a very expensive operation that you do not normally want to do more than once in the application lifetime. The GremlinClient instance is bound to a particular database server, so the only reason to create multiple instances is if you want to connect to multiple database servers.
 
