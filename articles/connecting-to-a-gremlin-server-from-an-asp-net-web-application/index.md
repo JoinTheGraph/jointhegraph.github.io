@@ -125,7 +125,7 @@ Then add a public property on the `IndexModel` to hold the people data that we w
 public IList<IDictionary<string, object>> People { get; set; }
 ```
 
-Unfortunately the Gremlin traversals do not return strongly-typed models. Here the list items will represent people. The the dictionary will hold the property names and values of the person. Of course there are ways to map this properties dictionary to a strongly-typed object. But I will not do this here because I want to focus on the basics in this article.
+Unfortunately the Gremlin traversals do not return strongly-typed models. Here the list items will represent people. The dictionary will hold the property names and values of the person. Of course there are ways to map this properties dictionary to a strongly-typed object. But I will not do this here because I want to focus on the basics in this article.
 
 Next, write the Gremlin traversal in the `OnGet()` method to fetch the data from the Gremlin server and assign it to the `People` property.
 
