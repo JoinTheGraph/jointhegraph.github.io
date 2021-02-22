@@ -10,11 +10,11 @@ If you would like to follow along, you will need the "Gremlin Server" and the "G
 
 Navigate to the Gremlin Server root folder then run `./bin/gremlin-server.sh` if you are on Linux or Mac. Or run `.\bin\gremlin-server.bat` if you are on Windows. This should start the Gremlin Server and tell you which port it is listening to. The port is "8182" by default.
 
-TODO: Image here
+![Gremlin Server](gremlin-server.png)
 
 Then navigate to the Gremlin Console root folder and run `./bin/gremlin.sh` if you are on Linux or Mac. Or run `.\bin\gremlin.bat` if you are on Windows. This should start the Gremlin Console.
 
-TODO: Image here
+![Gremlin Console](gremlin-console.png)
 
 Now enter the following commands in the Gremlin Console.
 
@@ -200,4 +200,4 @@ You may need to replace the port number by whatever port your web server is list
 
 If everything is working as expected, you should see two "person" records displayed on the home page. These two records are coming from the two vertices that we added earlier from the Gremlin Console.
 
-TODO: Add image
+![Person records](person-records.png)
