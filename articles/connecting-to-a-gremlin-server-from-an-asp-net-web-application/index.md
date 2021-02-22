@@ -188,3 +188,16 @@ else
 ```
 
 ### Run the Web Application
+
+Navigate to the web application root folder and run the following command.
+
+```shell
+dotnet run
+```
+
+Then, from your favorite web browser, navigate to https://localhost:5001/
+You may need to replace the port number by whatever port your web server is listening on.
+
+If everything is working as expected, you should see two "person" records displayed on the home page. These two records are coming from the two vertices that we added earlier from the Gremlin Console.
+
+TODO: Add image
