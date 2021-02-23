@@ -1,8 +1,8 @@
 # Using Gremlin.Net From an ASP.NET Web Application
 
-### Introduction
-
 <div style="text-align: center; margin-top: 2rem; margin-bottom: 2rem;"><iframe width="560" height="315" src="https://www.youtube.com/embed/4Fi8Ti0XPuE" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+
+### Introduction
 
 In this article, I will explain how to use [Gremlin.Net](https://tinkerpop.apache.org/docs/3.4.10/reference/#gremlin-dotnet) to connect and send traversals to a Gremlin server from an ASP.NET Web application.
 
