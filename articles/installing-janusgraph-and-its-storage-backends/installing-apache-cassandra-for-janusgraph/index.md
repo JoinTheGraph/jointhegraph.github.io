@@ -2,7 +2,7 @@
 
 # 3. Installing Apache Cassandra for JanusGraph
 
-<div style="text-align: center; margin-top: 2rem;"><iframe width="560" height="315" src="https://www.youtube.com/embed/s3f6jsvV8UQ" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+<div style="text-align: center; margin-top: 2rem; margin-bottom: 2rem;"><iframe width="560" height="315" src="https://www.youtube.com/embed/s3f6jsvV8UQ" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
 
 ### Introduction
 
