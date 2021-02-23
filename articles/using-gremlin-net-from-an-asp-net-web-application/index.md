@@ -2,6 +2,8 @@
 
 ### Introduction
 
+<div style="text-align: center; margin-top: 2rem; margin-bottom: 2rem;"><iframe width="560" height="315" src="https://www.youtube.com/embed/4Fi8Ti0XPuE" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+
 In this article, I will explain how to use [Gremlin.Net](https://tinkerpop.apache.org/docs/3.4.10/reference/#gremlin-dotnet) to connect and send traversals to a Gremlin server from an ASP.NET Web application.
 
 If you would like to follow along, you will need the "Gremlin Server" and the "Gremlin Console" which can be downloaded from the [Apache Tinkerpop Website](https://tinkerpop.apache.org/). And you will need the .NET SDK which can be downloaded from [here](https://dotnet.microsoft.com/download).
@@ -77,16 +79,18 @@ public void ConfigureServices(IServiceCollection services)
                 username: null,
                 password: null
             );
-            
+
+            var connectionPoolSettings = new ConnectionPoolSettings
+            {
+                MaxInProcessPerConnection = 32,
+                PoolSize = 4,
+                ReconnectionAttempts = 4,
+                ReconnectionBaseDelay = TimeSpan.FromSeconds(1)
+            };
+
             return new GremlinClient(
                 gremlinServer: gremlinServer,
-                connectionPoolSettings: new ConnectionPoolSettings
-                {
-                    PoolSize = 4,
-                    MaxInProcessPerConnection = 32,
-                    ReconnectionAttempts = 4,
-                    ReconnectionBaseDelay = TimeSpan.FromSeconds(1)
-                }
+                connectionPoolSettings: connectionPoolSettings
             );
         }
     );
@@ -94,7 +98,7 @@ public void ConfigureServices(IServiceCollection services)
     services.AddSingleton<GraphTraversalSource>(
         (serviceProvider) =>
         {
-            var gremlinClient = serviceProvider.GetService<GremlinClient>();
+            GremlinClient gremlinClient = serviceProvider.GetService<GremlinClient>();
             var driverRemoteConnection = new DriverRemoteConnection(gremlinClient, "g");
             return AnonymousTraversalSource.Traversal().WithRemote(driverRemoteConnection);
         }
@@ -201,3 +205,6 @@ You may need to replace the port number by whatever port your web server is list
 If everything is working as expected, you should see two "person" records displayed on the home page. These two records are coming from the two vertices that we added earlier from the Gremlin Console.
 
 ![Person records](person-records.png)
+
+
+The code snippets in this article are from the "GremlinWeb" project published on Github [https://github.com/JoinTheGraph/GremlinWeb](https://github.com/JoinTheGraph/GremlinWeb)
