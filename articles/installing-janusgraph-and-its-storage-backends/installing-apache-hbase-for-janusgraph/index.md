@@ -2,7 +2,7 @@
 
 # 4. Installing Apache HBase for JanusGraph
 
-<div style="text-align: center; margin-top: 2rem;"><iframe width="560" height="315" src="https://www.youtube.com/embed/COZl6d5zHFM" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+<div style="text-align: center; margin-top: 2rem; margin-bottom: 2rem;"><iframe width="560" height="315" src="https://www.youtube.com/embed/COZl6d5zHFM" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
 
 ### Introduction
 
