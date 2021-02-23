@@ -1,4 +1,4 @@
-# Connecting to a Gremlin Server From an ASP.NET Web Application
+# Using Gremlin.Net From an ASP.NET Web Application
 
 ### Introduction
 
