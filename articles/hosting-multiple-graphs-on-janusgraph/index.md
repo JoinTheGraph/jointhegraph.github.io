@@ -140,7 +140,7 @@ vim scripts/empty-sample.groovy
 And add a new graph traversal source to the `globals` map.
 
 ```diff
-globals << [g : graph.traversal()]
+  globals << [g : graph.traversal()]
 + globals << [g2 : graph2.traversal()]
 ```
 
@@ -183,11 +183,11 @@ gremlin> g2
 
 They are indeed recognized. So we successfully added a graph from the configuration. Which is great! But note that we had to edit the configuration files and restart the server. Depending on your use case, this may or may not be acceptable. In the next sections, I will show how to add and remove graphs dynamically without service interruptions.
 
-### Configure JanusGraph to User the "ConfiguredGraphFactory"
+### Configure JanusGraph to Use the "ConfiguredGraphFactory"
 
 The "ConfiguredGraphFactory" provides methods for dynamically managing the graphs hosted on the server. The default JanusGraph configuration does not enable the ConfiguredGraphFactory. So we need to make some changes to the configuration before we can use it.
 
-The ConfiguredGraphFactory needs to store information about the graphs it is tracking. It uses a graph (sometimes referred to as the "Configuration Management Graph") to store this information.
+The ConfiguredGraphFactory needs to store information about the graphs it is tracking. It uses a graph called the "Configuration Management Graph" to store this information.
 
 We need a properties file for this configuration management graph. JanusGraph comes with two properties files that can be used for this purpose: "janusgraph-cassandra-configurationgraph.properties" and "janusgraph-cql-configurationgraph.properties". But I want to store the configuration graph in HBase. So I will create a new file "janusgraph-hbase-configurationgraph.properties" by copying one of the two files that came with JanusGraph. Then I will open the new file for editing.
 
@@ -203,6 +203,127 @@ There is only one line that I need to change in the new properties file to set t
 + storage.backend=hbase
 ```
 
+And there are three changes that need to be made in the YAML configuration file. So let's open it for editing.
 
+```shell
+vim conf/gremlin-server/gremlin-server.yaml
+```
 
+The three changes are:
+1. Add a graph named "ConfigurationManagementGraph" under "graphs".
+2. Add a "graphManager" property.
+3. Change the value of the "channelizer" property.
 
+```diff
+- channelizer: org.apache.tinkerpop.gremlin.server.channel.WebSocketChannelizer
++ channelizer: org.janusgraph.channelizers.JanusGraphWebSocketChannelizer
++ graphManager: org.janusgraph.graphdb.management.JanusGraphManager
+  graphs: {
+    graph: conf/janusgraph-inmemory.properties,
+    graph2: conf/graph2-hbase.properties,
++   ConfigurationManagementGraph: conf/janusgraph-hbase-configurationgraph.properties
+  }
+```
+
+To apply the new configuration, shutdown the JanusGraph server by pressing CTRL + c if it is already running, then start it again.
+
+```shell
+bin/gremlin-server.sh
+```
+
+JanusGraph should create the "ConfigurationManagementGraph" on startup. Let's make sure this happened by entering the `list` command in the HBase shell.
+
+```
+hbase(main):003:0> list
+TABLE
+ConfigurationManagementGraph
+graph2
+2 row(s)
+Took 0.0848 seconds
+=> ["ConfigurationManagementGraph", "graph2"]
+```
+
+### Create a Template and Graphs Dynamically From the Client-Side
+
+Switch to the Gremlin Console. We will need to close the old connection and reconnect because the server was restarted.
+
+```
+gremlin> :remote close
+==>Removed - Gremlin Server - [localhost/127.0.0.1:8182]
+gremlin> :remote connect tinkerpop.server conf/remote.yaml session
+==>Configured localhost/127.0.0.1:8182-[be2df6ef-df68-4061-9ee0-c172e40c1d92]
+gremlin> :remote console
+==>All scripts will now be sent to Gremlin Server - [localhost/127.0.0.1:8182]-[be2df6ef-df68-4061-9ee0-c172e40c1d92] - type ':remote console' to return to local mode
+```
+
+Note than this time I connected to the server using a "sessioned connection". This is because it is much easier to build the template configuration map by sending multiple commands to the server.
+
+The following code creates a template configuration. Then creates two graphs: "dynamic1" and "dynamic2" based on this template.
+
+```groovy
+templateConfMap = new HashMap();
+templateConfMap.put("storage.backend", "hbase");
+templateConfMap.put("storage.hostname", "localhost");
+ConfiguredGraphFactory.createTemplateConfiguration(new MapConfiguration(templateConfMap));
+
+ConfiguredGraphFactory.create("dynamic1")
+ConfiguredGraphFactory.create("dynamic2")
+```
+
+Creating these graphs adds the global identifiers "dynamic1" and "dynamic2" for the graph objects. And adds the global identifiers "dynamic1_traversal" and "dynamic2_traversal" for the graph traversal source objects. These identifiers enable clients to access the new graphs.
+
+We cannot use these identifiers right now because we are using a sessioned connection that was established before the identifiers were created. So we need to disconnect from the server and reconnect to bind the new identifiers.
+
+```
+:remote close
+:remote connect tinkerpop.server conf/remote.yaml
+:remote console
+```
+
+Now try evaluating the new identifiers to make sure they are defined.
+
+```
+gremlin> dynamic1
+==>standardjanusgraph[hbase:[localhost]]
+gremlin> dynamic1_traversal
+==>graphtraversalsource[standardjanusgraph[hbase:[localhost]], standard]
+gremlin> dynamic2
+==>standardjanusgraph[hbase:[localhost]]
+gremlin> dynamic2_traversal
+==>graphtraversalsource[standardjanusgraph[hbase:[localhost]], standard]
+```
+
+These identifiers will NOT be forgotten when the JanusGraph server is restarted.
+
+Now `list` the tables from the HBase shell to see the tables that JanusGraph created for the new graphs.
+
+```
+hbase(main):004:0> list
+TABLE
+ConfigurationManagementGraph
+dynamic1
+dynamic2
+graph2
+4 row(s)
+Took 0.0779 seconds
+=> ["ConfigurationManagementGraph", "dynamic1", "dynamic2", "graph2"]
+```
+
+### Other Functions of the ConfiguredGraphFactory
+
+The ConfiguredGraphFactory can be used to get the list of names of the graphs that it is tracking.
+
+```
+gremlin> ConfiguredGraphFactory.getGraphNames()
+==>dynamic1
+==>dynamic2
+```
+
+It can also be used to drop a graph.
+
+```
+gremlin> ConfiguredGraphFactory.drop('dynamic2')
+==>null
+gremlin> ConfiguredGraphFactory.getGraphNames()
+==>dynamic1
+```
