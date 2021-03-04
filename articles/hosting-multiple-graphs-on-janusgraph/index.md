@@ -319,7 +319,7 @@ gremlin> ConfiguredGraphFactory.getGraphNames()
 ==>dynamic2
 ```
 
-It can also be used to drop a graph.
+It can also be used to drop graphs.
 
 ```
 gremlin> ConfiguredGraphFactory.drop('dynamic2')
