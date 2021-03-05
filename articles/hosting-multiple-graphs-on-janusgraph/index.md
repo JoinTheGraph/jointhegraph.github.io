@@ -1,5 +1,7 @@
 # Hosting Multiple Graphs on JanusGraph
 
+<div style="text-align: center; margin-top: 2rem; margin-bottom: 2rem;"><iframe width="560" height="315" src="https://www.youtube.com/embed/G6Vjzu0Tq3Q" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+
 ### Introduction
 
 In this article, I will explain how to configure JanusGraph to host multiple graphs on the same JanusGraph instance. I will start by explaining how you can add graphs from the JanusGraph configuration files. Then I will explain how to configure JanusGraph to use the `ConfiguredGraphFactory` so you can add and remove graphs dynamically without having to edit the configuration files or restart the JanusGraph server.
