@@ -16,18 +16,17 @@ The following code populates the graph with some sample data: a "post" vertex th
 static void PopulateGraph(GraphTraversalSource g)
 {
     g.AddV("post")
-        .Property(T.Id, 1)
         .Property("slug", "post-1")
         .Property("author", "Author 1")
-        .Property("publishedOn", new DateTimeOffset(2021, 3, 19, 17, 7, 52, TimeSpan.FromHours(-7)))
-        .Property("lastUpdate", new DateTimeOffset(2021, 4, 2, 8, 45, 3, TimeSpan.FromHours(-7)))
+        .Property("publishedOn", new DateTime(2021, 3, 19, 17, 7, 52))
+        .Property("lastUpdate", new DateTime(2021, 4, 2, 8, 45, 3))
         .Property("title", "Post 1")
         .Property("body", "Body 1")
         .As("p1")
         
     .AddV("comment")
         .Property("userName", "User 1")
-        .Property("postedOn", new DateTimeOffset(2021, 4, 15, 20, 59, 50, TimeSpan.FromHours(-7)))
+        .Property("postedOn", new DateTime(2021, 4, 15, 20, 59, 50))
         .Property("title", "Comment 1 Title")
         .Property("body", "Comment 1 body")
         .Property("wasEdited", false)
@@ -36,7 +35,7 @@ static void PopulateGraph(GraphTraversalSource g)
         
     .AddV("comment")
         .Property("userName", "User 2")
-        .Property("postedOn", new DateTimeOffset(2021, 4, 18, 16, 48, 44, TimeSpan.FromHours(-7)))
+        .Property("postedOn", new DateTime(2021, 4, 18, 16, 48, 44))
         .Property("title", "Comment 2 Title")
         .Property("body", "Comment 2 body")
         .Property("wasEdited", true)
@@ -45,7 +44,7 @@ static void PopulateGraph(GraphTraversalSource g)
         
     .AddV("comment")
         .Property("userName", "User 3")
-        .Property("postedOn", new DateTimeOffset(2021, 4, 22, 4, 12, 21, TimeSpan.FromHours(-7)))
+        .Property("postedOn", new DateTime(2021, 4, 22, 4, 12, 21))
         .Property("title", "Comment 3 Title")
         .Property("body", "Comment 3 body")
         .Property("wasEdited", false)
@@ -205,4 +204,4 @@ static IDictionary<string, object> GetPostUsingProjectBy(GraphTraversalSource g)
 }
 ```
 
-Now the keys are right next to the value sources which makes the traversal more readable in my opinion. Also we do not have to specify the value source when we want to get the value of a property which name is the same as the projection key.
+Now the keys are right next to the value sources which makes the traversal more readable and maintainable in my opinion. Also we do not have to specify the value source when we want to get the value of a property which name is the same as the projection key.
