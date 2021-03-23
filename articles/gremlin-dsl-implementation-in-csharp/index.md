@@ -1,5 +1,7 @@
 # Gremlin DSL Implementation in C#
 
+<div style="text-align: center; margin-top: 2rem; margin-bottom: 2rem;"><iframe width="560" height="315" src="https://www.youtube.com/embed/0xHjNjJk2h4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+
 ### Introduction
 
 Developers can extend the Gremlin traversal language by defining higher-level, domain-specific steps that are made from the lower-level, standard graph traversal steps. This can be used to define steps that are specific to your application domain. Or to define more general-purpose steps to make traversing graphs easier.
@@ -143,7 +145,7 @@ The second `ProjectBy()` overload saves the caller from having to specify the ty
 Now let's create static `ProjectBy()` methods that build anonymous traversals with a "Project" step.
 
 ```csharp
-public class __Ext
+public static class __Ext
 {
     public static GraphTraversal<object, IDictionary<string, E2>> ProjectBy<E2>(
         IDictionary<string, ITraversal> projectionMap)
@@ -205,3 +207,5 @@ static IDictionary<string, object> GetPostUsingProjectBy(GraphTraversalSource g)
 ```
 
 Now the keys are right next to the value sources which makes the traversal more readable and maintainable in my opinion. Also we do not have to specify the value source when we want to get the value of a property which name is the same as the projection key.
+
+Here is a link to the "Gremlin DSL Implementation in C#" project repo on GitHub [https://github.com/JoinTheGraph/GremlinDslImplementationInCSharp](https://github.com/JoinTheGraph/GremlinDslImplementationInCSharp)
